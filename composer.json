@@ -1,0 +1,34 @@
+{
+  "name": "timostamm/protoc-h1-php-server",
+  "type": "library",
+  "description": "PHP utilities to implement protobuf services on a simple HTTP server",
+  "license": "MIT",
+  "require": {
+    "php": "^7.1",
+    "google/protobuf": "^3.10",
+    "symfony/property-info": ">=4"
+  },
+  "suggest": {
+    "ext-bcmath": "Need to support JSON deserialization",
+    "symfony/http-foundation": "To handle requests",
+    "psr/log": "To handle requests",
+    "psr/container": "To resolve service implementation from container"
+  },
+  "autoload": {
+    "psr-4": {
+      "TS\\Protobuf\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "TS\\Protobuf\\": "tests",
+      "Example\\": "out-php/Example"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.3",
+    "symfony/http-foundation": "^4.3",
+    "psr/log": "^1.1",
+    "psr/container": "^1.0"
+  }
+}
