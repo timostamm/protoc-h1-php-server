@@ -1,8 +1,12 @@
-php-protobuf-http-server
-========================
+Protobuf RPC over HTTP 1 - PHP server
+=====================================
 
 
 PHP utilities to implement protobuf services on a simple HTTP server.
+
+Supports all unary RPC calls over HTTP 1. 
+
+For auto-generated clients, see https://github.com/timostamm/protoc-h1-plugins
 
 
 Lets say you have this service defined in a proto file:
