@@ -54,14 +54,7 @@ class ImplementationMethodReflection
             throw new LogicException($msg);
         }
 
-        try {
-
-            $return = $method->invoke($this->implementation, $parameter);
-
-        } catch (Throwable $throwable) {
-            $msg = sprintf('Service implementation %s() threw an error: %s', $this->getFullyQualifiedName(), $throwable->getMessage());
-            throw new RuntimeException($msg, 0, $throwable);
-        }
+        $return = $method->invoke($this->implementation, $parameter);
 
         if (is_null($return)) {
             $msg = sprintf('Faulty service implementation. Expected return value of %s() to be a %s. Got NULL instead.', $this->getFullyQualifiedName(), $this->getReturnType());

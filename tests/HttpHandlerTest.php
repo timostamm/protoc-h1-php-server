@@ -8,6 +8,7 @@ use Example\SearchRequest;
 use Example\SearchResponse;
 use Example\SearchServiceInterface;
 use Exception;
+use LogicException;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\Test\TestLogger;
 use RuntimeException;
@@ -166,8 +167,8 @@ class HttpHandlerTest extends TestCase
         $searchRequest = new SearchRequest([
             'text' => 'foo'
         ]);
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Service implementation TS\Protobuf\SearchServiceException::search() threw an error: search exception');
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('search exception');
         $resolver = new ServiceResolver();
         $resolver->registerInstance(SearchServiceInterface::class, new SearchServiceException());
         $handler = new HttpHandler($resolver);

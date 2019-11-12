@@ -23,7 +23,7 @@ class ImplementationReflectionTest extends TestCase
     public function testImplementationThrows()
     {
         $si = new ImplementationReflection(InterfaceReflection::create(SearchServiceInterface::class), new SearchServiceException());
-        $this->expectExceptionMessage('Service implementation TS\Protobuf\SearchServiceException::search() threw an error: search exception');
+        $this->expectExceptionMessage('search exception');
         $si->invoke('search', new SearchRequest());
     }
 
