@@ -305,7 +305,7 @@ class HttpHandler
 
     protected function isJsonRequest(Request $request): bool
     {
-        return in_array($request->getContentType(), $this->getJsonContentTypes());
+        return in_array($request->headers->get('CONTENT_TYPE'), $this->getJsonContentTypes());
     }
 
 
