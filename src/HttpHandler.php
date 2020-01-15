@@ -140,7 +140,7 @@ class HttpHandler
         return $this->allowedRequestMethods;
     }
 
-    public function setAllowedRequestMethods(string ... $allowedRequestMethods): void
+    public function setAllowedRequestMethods(string ...$allowedRequestMethods): void
     {
         $this->allowedRequestMethods = $allowedRequestMethods;
     }
@@ -153,7 +153,7 @@ class HttpHandler
         return $this->jsonContentTypes;
     }
 
-    public function setJsonContentTypes(string ... $jsonContentTypes): void
+    public function setJsonContentTypes(string ...$jsonContentTypes): void
     {
         $this->jsonContentTypes = $jsonContentTypes;
     }
@@ -193,6 +193,8 @@ class HttpHandler
     {
         $this->logger->error('Bad Request for {method}: {exceptionClass} in {exceptionFile}:{exceptionLine}: {exceptionMessage}', [
             'method' => $method->getFullyQualifiedName(),
+            'parameterName' => $method->getParameterName(),
+            'parameterType' => $method->getParameterType(),
             'exceptionClass' => get_class($exception),
             'exceptionFile' => $exception->getFile(),
             'exceptionLine' => $exception->getLine(),
@@ -205,9 +207,7 @@ class HttpHandler
     {
         $content = 'Bad Request';
         if ($this->isDebug()) {
-            $content .= "\n\n" . "Method: " . $method->getFullyQualifiedName();
-        }
-        if ($this->isDebug()) {
+            $content .= "\n\n" . sprintf('Invalid parameter "%s" for method %s', $method->getParameterName(), $method->getName());
             $content .= "\n\n" . $exception->__toString();
         }
         return new Response($content, Response::HTTP_BAD_REQUEST, ['Content-Type' => 'text/plain; charset=UTF-8']);
