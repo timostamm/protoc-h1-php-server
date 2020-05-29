@@ -7,9 +7,6 @@ namespace TS\Protobuf;
 use Generator;
 use Google\Protobuf\Internal\Message;
 use LogicException;
-use phpDocumentor\Reflection\DocBlock\Tags\Return_;
-use phpDocumentor\Reflection\DocBlockFactory;
-use phpDocumentor\Reflection\Types\ContextFactory;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;
@@ -55,16 +52,12 @@ class InterfaceReflection
 
     private $protobufTypeCache;
 
-    private $contextFactory;
-    private $docBlockFactory;
     private $typeHelper;
 
 
     public function __construct(ReflectionClass $serviceInterface)
     {
         $this->reflection = $serviceInterface;
-        $this->contextFactory = new ContextFactory();
-        $this->docBlockFactory = DocBlockFactory::createInstance();
         $this->typeHelper = new PhpDocTypeHelper();
         $this->methodCache = [];
     }
@@ -211,28 +204,18 @@ class InterfaceReflection
             throw new UnexpectedValueException($msg);
         }
 
-        $docBlock = $this->docBlockFactory->create($docComment, $this->contextFactory->createFromReflector($refMethod));
-
-        /** @var Return_[] $returnTags */
-        $returnTags = $docBlock->getTagsByName('return');
-        if (count($returnTags) !== 1) {
-            $msg = sprintf('Unexpected service method %s::%s: no return type information found in doc block.', $this->getName(), $refMethod->getName());
-            throw new UnexpectedValueException($msg);
-        }
-
-        $returnTagType = $returnTags[0]->getType();
-        $typeInfos = $this->typeHelper->getTypes($returnTagType);
-        if (count($typeInfos) !== 1) {
+        $result = preg_match('/@return ((?:\\\\[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]+)+)+/', $docComment, $matches);
+        if ($result !== 1) {
             $msg = sprintf('Unexpected service method %s::%s: unable to read return type information from doc block.', $this->getName(), $refMethod->getName());
             throw new UnexpectedValueException($msg);
         }
 
-        $returnType = $typeInfos[0]->getClassName();
-        if (!is_string($returnType)) {
-            $msg = sprintf('Unexpected service method %s::%s: unexpected return type information from doc block.', $this->getName(), $refMethod->getName());
-            throw new UnexpectedValueException($msg);
-        }
+        $returnType = $matches[1];
 
+        // drop first \
+        if (strpos($returnType, '\\') === 0) {
+            $returnType = substr($returnType, 1);
+        }
         return $returnType;
     }
 
