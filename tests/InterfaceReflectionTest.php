@@ -30,7 +30,7 @@ class InterfaceReflectionTest extends TestCase
      * @depends testCreate
      * @param InterfaceReflection $rs
      */
-    public function testGetProtobufTye(InterfaceReflection $rs)
+    public function testGetProtobufType(InterfaceReflection $rs)
     {
         $this->assertSame('example.SearchService', $rs->getProtobufType());
     }
