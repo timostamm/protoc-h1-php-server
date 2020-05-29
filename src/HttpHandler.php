@@ -207,7 +207,7 @@ class HttpHandler
     {
         $content = 'Bad Request';
         if ($this->isDebug()) {
-            $content .= "\n\n" . sprintf('Invalid parameter "%s" for method %s', $method->getParameterName(), $method->getName());
+            $content .= "\n\n" . sprintf('Invalid parameter "%s" for method %s.', $method->getParameterName(), $method->getFullyQualifiedName());
             $content .= "\n\n" . $exception->__toString();
         }
         return new Response($content, Response::HTTP_BAD_REQUEST, ['Content-Type' => 'text/plain; charset=UTF-8']);

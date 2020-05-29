@@ -11,7 +11,6 @@ use Exception;
 use LogicException;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\Test\TestLogger;
-use RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -129,7 +128,7 @@ class HttpHandlerTest extends TestCase
         );
         $this->assertSame(Response::HTTP_BAD_REQUEST, $httpResponse->getStatusCode());
         $this->assertSame('text/plain; charset=UTF-8', $httpResponse->headers->get('content-type'));
-        $this->assertStringContainsString('Method: TS\Protobuf\SearchService::search', $httpResponse->getContent());
+        $this->assertStringContainsString('TS\Protobuf\SearchService::search', $httpResponse->getContent());
         $this->assertStringContainsString('Google\Protobuf\Internal\GPBDecodeException: Error occurred during parsing: Unexpected wire type', $httpResponse->getContent());
         $this->assertTrue($this->logger->hasErrorThatContains('Bad Request for'));
     }
