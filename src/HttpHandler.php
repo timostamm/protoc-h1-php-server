@@ -299,7 +299,7 @@ class HttpHandler
         if ($acceptsJson && !$acceptsProto) {
             return true;
         }
-        return false;
+        return $this->isJsonRequest($request);
     }
 
 
