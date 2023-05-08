@@ -314,7 +314,13 @@ class HttpHandler
         $pool = DescriptorPool::getGeneratedPool();
         $desc = $pool->getDescriptorByClassName(get_class($message));
         $fully_qualified_name = $desc->getFullName();
-        return substr($fully_qualified_name, 1);
+
+        // Remove period prefix from older protobuf versions
+        if (substr($fully_qualified_name, 0, 1) === ".") {
+            $fully_qualified_name = substr($fully_qualified_name, 1);
+        }
+
+        return $fully_qualified_name;
     }
 
 
