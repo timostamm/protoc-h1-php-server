@@ -24,7 +24,7 @@ class HttpHandlerTest extends TestCase
     private $logger;
 
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->logger = new TestLogger();
         $resolver = new ServiceResolver();
@@ -148,7 +148,7 @@ class HttpHandlerTest extends TestCase
             'search',
             Request::create('http://localhost', 'PUT', [], [], [], [], $searchRequest->serializeToString())
         );
-
+$foo = $httpResponse->headers->get('content-type');
         $this->assertSame(Response::HTTP_OK, $httpResponse->getStatusCode());
         $this->assertSame('application/protobuf; proto=example.SearchResponse', $httpResponse->headers->get('content-type'));
 
