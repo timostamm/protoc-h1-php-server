@@ -4,7 +4,7 @@
   "description": "PHP utilities to implement protobuf services on a simple HTTP server",
   "license": "MIT",
   "require": {
-    "php": "^7.1",
+    "php": "^7.2 || ^8.0",
     "google/protobuf": "^3.10",
     "symfony/property-info": ">=4"
   },
