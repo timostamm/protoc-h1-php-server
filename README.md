@@ -1,6 +1,10 @@
 Protobuf RPC over HTTP 1 - PHP server
 =====================================
 
+[![build](https://github.com/timostamm/protoc-h1-php-server/workflows/CI/badge.svg)](https://github.com/timostamm/protoc-h1-php-server/actions?query=workflow:"CI")
+![Packagist PHP Version](https://img.shields.io/packagist/dependency-v/timostamm/protoc-h1-php-server/php)
+[![GitHub tag](https://img.shields.io/github/tag/timostamm/protoc-h1-php-server?include_prereleases=&sort=semver&color=blue)](https://github.com/timostamm/protoc-h1-php-server/releases/)
+[![License](https://img.shields.io/badge/License-MIT-blue)](#license)
 
 PHP utilities to implement protobuf services on a simple HTTP server.
 
